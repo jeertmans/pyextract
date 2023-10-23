@@ -1,14 +1,48 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
 [tool.poetry]
-name = "pyextract"
-version = "0.1.0"
-description = ""
 authors = ["Jérome Eertmans <jeertmans@icloud.com>"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development",
+  "Topic :: Utilities"
+]
+description = ""
+name = "pyextract"
 readme = "README.md"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
+click = {version = "^8.1.7", optional = true}
+pygments = {version = "^2.16.1", optional = true}
 python = "^3.10"
 
+[tool.poetry.extras]
+cli = ["click", "pygments"]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.0.2"
+
+[tool.poetry.plugins."console_scripts"]
+pyextract = "pyextract.__main__:main"
+
+[tool.ruff]
+extend-ignore = [
+  "D105",
+  "D107",
+  "D203",
+  "D212"
+]
+extend-select = ["B", "C90", "D", "I", "N", "RUF", "UP", "T"]
+isort = {known-first-party = ["pyextract", "tests"]}
+line-length = 88
+target-version = "py38"
